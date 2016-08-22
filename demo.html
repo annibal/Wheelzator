@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+		<link href='https://fonts.googleapis.com/css?family=Montserrat+Alternates|Pacifico|Lato|Bitter' rel='stylesheet' type='text/css'>
+		<link href='wheelzator.css' rel='stylesheet' type='text/css'>
+		<style>
+			.panel{
+				margin-bottom:10px;
+			}
+		</style>
+		<link href="" rel="favicon" />
+		<title>Wheelzator Demo</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<a class="pull-right btn btn-md btn-success" href="index.html"><i class="fa fa-chevron-left fa-lg"></i> Docs</a>
+					<h2>Wheelzator</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>Yes No Example</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-2 col-sm-offset-2">
+								<div id="wheelzator-1" class="wheelzator-yes-no"></div>
+							</div>
+							<div><code>&lt;div id="wheelzator-1" class="wheelzator-yes-no" /&gt;<br />var ynWheel = wheelzator("#wheelzator-1",options);<br/>
+							ynWheel.setValue(true);
+							</code></div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>Importance Example</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-2 col-sm-offset-2">
+								<div id="wheelzator-2" class="wheelzator-importance"></div>
+							</div>
+							<div><code>&lt;div id="wheelzator-2" class="wheelzator-importance" /&gt;<br />wheelzator("#wheelzator-2",options);</code></div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>Many Options Example</h3>
+							<p>Also onSelect funcion creating alert</p>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-2 col-sm-offset-2">
+								<div id="wheelzator-3" class="wheelzator-social"></div>
+							</div>
+							<div><code>&lt;div id="wheelzator-3" class="wheelzator-social" /&gt;<br />wheelzator("#wheelzator-3",options,config);</code></div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>Other styles Example</h3>
+							<p>different animation</p>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-2 col-sm-offset-2">
+								<div id="wheelzator-4" class="wheelzator-blueish "></div>
+							</div>
+							<div><code>&lt;div id="wheelzator-4" class="wheelzator-blueish" /&gt;<br />wheelzator("#wheelzator-4",options,config).setIndex(1);</code></div>
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div style="margin-bottom: 800px"></div>
+		
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+		<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js" ></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+		<script src="wheelzator.js" ></script>
+		<script>
+
+			var wheelzatorYesNo = [
+				{icon:"check", value:true, title:"Ativo"},
+				{icon:"times", value:false, title:"Inativo"},
+			]
+			var wheelzatorImportance = [
+				{icon:"square", value:1, title:"Comum"},
+				{icon:"info", value:2, title:"Informação"},
+				{icon:"exclamation-triangle", value:3, title:"Atenção"},
+				{icon:"exclamation-circle", value:4, title:"Importante"},
+			]
+
+			// --------------------- make the stuff ---------------------
+
+			wheelzator("#wheelzator-1",wheelzatorYesNo).setValue(true);
+			wheelzator("#wheelzator-2",wheelzatorImportance);
+			
+
+
+			var wheelzatorMany = [
+				{icon:"facebook-square", value:"facebook", title:"Facebook"},
+				{icon:"twitter-square", value:"twitter", title:"Twitter"},
+				{icon:"google-plus-square", value:"google-plus", title:"Google Plus"},
+				{icon:"linkedin-square", value:"linkedin", title:"Linkedin"},
+				{icon:"pinterest-square", value:"pinterest", title:"Pinterest"},
+				{icon:"whatsapp", value:"whatsapp", title:"WhatsApp"},
+				{icon:"vine", value:"vine", title:"Vine"}
+			];
+			var wheelzatorManyConfig = {
+				optionDistance:70,
+				maxDistance:105,
+				minDistance:10,
+				onSelect:function(data) {
+					$("<div class='alert alert-success col-sm-6 col-sm-offset-3'></div>")
+					.text("["+data.index+"] = "+data.value)
+					.appendTo(
+						$(data.originObject.parent().parent())
+					)
+					
+				}
+			}
+			wheelzator("#wheelzator-3",wheelzatorMany,wheelzatorManyConfig);
+
+
+			var wheelzatorBlueish = [
+				{icon:"home", value:"home", title:"Go to homepage"},
+				{icon:"headphones", value:"music", title:"Start music"},
+				{icon:"camera", value:"photos", title:"See media"},
+				{icon:"cog", value:"config", title:"Configurations"},
+				{icon:"user", value:"user", title:"User Options"}
+			]
+			var wheelzatorBlueishConfig = {
+				optionDistance:100,
+				maxDistance:150,
+				minDistance:30,
+				offsetAngle:54,
+				offsetCalcAngle:80,
+			}
+			wheelzator("#wheelzator-4",wheelzatorBlueish,wheelzatorBlueishConfig).setIndex(1);
+
+			$(".wheel-option-container a").tooltip();
+		</script>
+	</body>
+</html>
