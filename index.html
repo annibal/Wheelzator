@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wheelzator Documentation</title>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<style>
+	/* Note: Try to remove the following lines to see the effect of CSS positioning */
+	.affix {
+			top: 20px;
+	}
+	section {
+		padding-bottom:100px;
+		border-bottom:1px solid #DDD;
+	}
+	code {
+		padding:15px;
+		padding-top:0;
+		box-sizing:content-box;
+		display:block;
+		white-space:pre-line;
+		border:1px solid lightred;
+		cursor:text;
+	}
+	tb {
+		margin-right:2em;
+		border-right:1px dotted #DDD;
+	}
+	</style>
+</head>
+<body  data-spy="scroll" data-target="#myScrollspy" data-offset="150"> 
+
+<div class="container-fluid" style="background-color:#2196F3;color:#fff;height:200px;">
+	<h1>Wheelzator</h1>
+	<h3>Stylish alternative to combobox selection using wheel-like popup buttons</h3>
+	<h2 class="pull-right"><a class="btn btn-lg btn-primary" href="demo.html">See the demo <i class="fa fa-share fa-lg"></i></a></h2>
+	
+</div>
+<br>
+	
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-sm-2" id="myScrollspy">
+			<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+				<li class="active"><a href="#usage">Usage</a></li>
+				<li><a href="#structure">Structure</a></li>
+				<li><a href="#styling">Styling</a></li>
+				<li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown">Parameters <span class="caret"></a>
+					<ul class="dropdown-menu">
+						<li><a href="#parameters-options">Options</a></li>
+						<li><a href="#parameters-config">Config</a></li>
+						<li><a href="#parameters-events">Events</a></li>
+					</ul>
+				</li>
+				<li><a href="#manipulating">Manipulating</a></li>
+				<li><a href="#presets">Presets</a></li>
+				<li><a href="#dependancies">Dependancies</a></li>
+			</ul>
+		</nav>
+		<div class="col-sm-10">
+			<section id="usage">
+				<h3>Usage</h3>
+				<p><b>HTML:</b></p>
+				<code>
+					&lt;div id="my-wheel-container" class="my-wheel"&gt;&lt;/div&gt;
+				</code>
+				<br/>
+				<p><b>Code:</b></p>
+				<code>
+					&lt;script&gt;
+					<tb></tb>wObj = wheelzator("#my-wheel-container", optionsArray, configurationsAndEventsObject);
+					&lt;/script&gt;
+				</code>
+				<br/>
+				<p><b>More code:</b></p>
+				<code>
+					&lt;script&gt;
+					<tb></tb>wObj.setValue("active");
+					<tb></tb>$(".wheel-option-container a").tooltip();
+					&lt;/script&gt;
+				</code>
+				
+			</section>
+			<section id="structure">
+				<h3>Structure</h3>
+				<p><b>General:</b></p>
+				<code>
+					div.wheel-container[data-selected=<b>N</b>][data-icon=<b>ICON</b>]
+					<tb></tb>div.wheel-inner
+					<tb></tb><tb></tb>div.wheel-option-container
+					<tb></tb><tb></tb><tb></tb>a.wheel-option.icon-<b>ICON</b>.option-index-<b>N</b>
+					<tb></tb><tb></tb><tb></tb><tb></tb>i.fa.fa-<b>ICON</b>
+					<tb></tb>div.wheel-center
+					<tb></tb><tb></tb>i.fa.fa-<b>ICON</b>
+				</code>
+				<br />
+				<p><b>Yes / No Generated HTML example:</b></p>
+				<code>
+&lt;div&nbsp;class="wheel-container"
+<tb></tb>&nbsp;data-clickstart="1466196723964"
+<tb></tb>&nbsp;data-selected=""
+<tb></tb>&nbsp;data-icon=""&gt;
+<tb></tb>&lt;div&nbsp;class="wheel-inner"&nbsp;
+<tb></tb><tb></tb>&nbsp;style="width:&nbsp;180px;
+<tb></tb><tb></tb><tb></tb><tb></tb>height:&nbsp;180px;
+<tb></tb><tb></tb><tb></tb><tb></tb>top:&nbsp;-90px;
+<tb></tb><tb></tb><tb></tb><tb></tb>left:&nbsp;-90px;
+<tb></tb><tb></tb><tb></tb><tb></tb>box-sizing:&nbsp;border-box;
+<tb></tb><tb></tb><tb></tb><tb></tb>padding:&nbsp;89px;"&nbsp;&gt;
+<tb></tb><tb></tb>&lt;div&nbsp;class="wheel-option-container"
+<tb></tb><tb></tb><tb></tb>&nbsp;style="top:&nbsp;30px;
+<tb></tb><tb></tb><tb></tb>&nbsp;<tb></tb><tb></tb>left:&nbsp;90px;"&gt;
+<tb></tb><tb></tb><tb></tb>&lt;a&nbsp;&nbsp;title="Ativo"
+<tb></tb><tb></tb><tb></tb><tb></tb>data-icon="check"
+<tb></tb><tb></tb><tb></tb><tb></tb>class="wheel-option&nbsp;icon-check&nbsp;option-index-1"
+<tb></tb><tb></tb><tb></tb><tb></tb>data-val="true"&gt;
+<tb></tb><tb></tb><tb></tb><tb></tb>&lt;i&nbsp;class="fa&nbsp;fa-check"&gt;&lt;/i&gt;
+<tb></tb><tb></tb><tb></tb>&lt;/a&gt;
+<tb></tb><tb></tb>&lt;/div&gt;
+<tb></tb><tb></tb>&lt;div&nbsp;class="wheel-option-container"
+<tb></tb><tb></tb><tb></tb>&nbsp;style="top:&nbsp;150px;
+<tb></tb><tb></tb><tb></tb>&nbsp;<tb></tb><tb></tb>left:&nbsp;90px;"&gt;
+<tb></tb><tb></tb><tb></tb>&lt;a&nbsp;&nbsp;title="Inativo"
+<tb></tb><tb></tb><tb></tb><tb></tb>data-icon="times"
+<tb></tb><tb></tb><tb></tb><tb></tb>class="wheel-option&nbsp;icon-times&nbsp;option-index-2"
+<tb></tb><tb></tb><tb></tb><tb></tb>data-val="false"&gt;
+<tb></tb><tb></tb><tb></tb><tb></tb>&lt;i&nbsp;class="fa&nbsp;fa-times"&gt;&lt;/i&gt;
+<tb></tb><tb></tb><tb></tb>&lt;/a&gt;
+<tb></tb><tb></tb>&lt;/div&gt;
+<tb></tb>&lt;/div&gt;
+<tb></tb>&lt;div&nbsp;class="wheel-center"&gt;
+<tb></tb><tb></tb>&lt;i&nbsp;class="fa"&gt;&lt;/i&gt;
+<tb></tb>&lt;/div&gt;
+&lt;/div&gt;
+				</code>
+
+				<br /><br />
+				<p>Options are displayed in this form (if offsetAngle is default):</p>
+				<img src="example6.png" class="img-thumbnail" />
+
+
+			</section>
+			<section id="styling">
+				<h3>Styling</h3>
+				<p>Each icon has it's index and icon as class:<br/>
+				<tb></tb><b>.option-index-3</b><br />
+				<tb></tb><b>.icon-whatsapp</b><br />
+				When the user moves the mouse around the opened wheel (<b>.in</b> class means it's opened), it shall toggle attributes on <b>.wheel-container</b> as such:<br/>
+				<tb></tb>[data-selected="3"]<br />
+				<tb></tb>[data-icon="whatsapp"]<br /></p>
+				<br />
+				<br />
+<p>Use this css template to code upon</p>
+				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#css-template">CSS Skeleton <i class="fa fa-caret-down"></i></button>
+				<div id="css-template" class="collapse">
+					<code>
+.wheel-container {
+
+}
+.wheel-container .wheel-inner {
+
+}
+.wheel-container .wheel-center {
+	
+}
+.wheel-container .wheel-center .fa {
+
+}
+.wheel-container .wheel-inner .wheel-option-container {
+
+}
+.wheel-container .wheel-inner .wheel-option-container .wheel-option {
+
+}
+.wheel-container .wheel-inner .wheel-option-container .wheel-option .fa {
+}
+
+
+.wheel-container.in {
+
+}
+.wheel-container.in .wheel-inner {
+
+}
+.wheel-container.in .wheel-center {
+	
+}
+.wheel-container.in .wheel-center .fa {
+	
+}
+.wheel-container.in .wheel-inner .wheel-option-container {
+
+}
+.wheel-container.in .wheel-option {
+
+}
+.wheel-container.in .wheel-inner .wheel-option-container .wheel-option .fa {
+
+}
+					</code>
+				</div>
+					
+				<br />
+				<br />
+				<p>Template to create color schemes, using 1, 2, 3 (N) or using icon (font awesome's icon class without the ".fa-" prefix)</p>
+				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#css-template-index">Via Index <i class="fa fa-caret-down"></i></button>
+				<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#css-template-icon">Via Icon <i class="fa fa-caret-down"></i></button>
+				<div id="css-template-index" class="collapse">
+					<code>
+.wheel-container .wheel-option.option-index-N { background:#COLOR_MUTED; }
+div.wheel-container[data-selected="N"] .wheel-option.option-index-N {  background:#COLOR_HOVER; }
+div.wheel-container[data-selected="N"] .wheel-center {  background:#COLOR_HOVER; }
+					</code>
+				</div>
+				<div id="css-template-icon" class="collapse">
+					<code>
+.wheel-container .wheel-option.icon-FONTAWESOMEICON { background:#COLOR_MUTED; }
+div.wheel-container[data-icon="FONTAWESOMEICON"] .wheel-option.icon-FONTAWESOMEICON {  background:#COLOR_HOVER; }
+div.wheel-container[data-icon="FONTAWESOMEICON"] .wheel-center {  background:#COLOR_HOVER; }
+					</code>
+				</div>
+				<br />
+				<br />
+				<br />
+				<h3>Example</h3>
+				<p>Social Media Wheelzator (doesn't includes -square here, like <i class="fa fa-facebook-square" title="fa-facebook-square"></i>)</p>
+				<code>
+
+.wheelzator-social .wheel-container .wheel-option.icon-facebook { background:#9daccc; }
+.wheelzator-social .wheel-container .wheel-option.icon-twitter { background:#aad6f7; }
+.wheelzator-social .wheel-container .wheel-option.icon-google-plus { background:#eea59c; }
+.wheelzator-social .wheel-container .wheel-option.icon-youtube { background:#dd7f7f; }
+.wheelzator-social .wheel-container .wheel-option.icon-linkedin { background:#7fbddb; }
+.wheelzator-social .wheel-container .wheel-option.icon-instagram { background:#85aac5; }
+.wheelzator-social .wheel-container .wheel-option.icon-pinterest { background:#e58f93; }
+.wheelzator-social .wheel-container .wheel-option.icon-whatsapp { background:#a3e29e; }
+.wheelzator-social .wheel-container .wheel-option.icon-vine { background:#7fdfc7; }
+.wheelzator-social .wheel-container .wheel-option.icon-snapchat { background:#fffe7f; }
+.wheelzator-social .wheel-container .wheel-option.icon-spotify { background:#7ff2b0; }
+.wheelzator-social .wheel-container .wheel-option.icon-tumblr { background:#98a7b6; }
+.wheelzator-social .wheel-container .wheel-option.icon-rss { background:#ffb27f; }
+
+.wheelzator-social div.wheel-container[data-icon="facebook"] .wheel-option.icon-facebook {  background:#3b5998; }
+.wheelzator-social div.wheel-container[data-icon="twitter"] .wheel-option.icon-twitter {  background:#55acee; }
+.wheelzator-social div.wheel-container[data-icon="google-plus"] .wheel-option.icon-google-plus {  background:#dd4b39; }
+.wheelzator-social div.wheel-container[data-icon="youtube"] .wheel-option.icon-youtube {  background:#bb0000; }
+.wheelzator-social div.wheel-container[data-icon="linkedin"] .wheel-option.icon-linkedin {  background:#007bb5; }
+.wheelzator-social div.wheel-container[data-icon="instagram"] .wheel-option.icon-instagram {  background:#125688; }
+.wheelzator-social div.wheel-container[data-icon="pinterest"] .wheel-option.icon-pinterest {  background:#cb2027; }
+.wheelzator-social div.wheel-container[data-icon="whatsapp"] .wheel-option.icon-whatsapp {  background:#4dc247; }
+.wheelzator-social div.wheel-container[data-icon="vine"] .wheel-option.icon-vine {  background:#00bf8f; }
+.wheelzator-social div.wheel-container[data-icon="snapchat"] .wheel-option.icon-snapchat {  background:#fffc00; }
+.wheelzator-social div.wheel-container[data-icon="spotify"] .wheel-option.icon-spotify {  background:#00e461; }
+.wheelzator-social div.wheel-container[data-icon="tumblr"] .wheel-option.icon-tumblr {  background:#32506d; }
+.wheelzator-social div.wheel-container[data-icon="rss"] .wheel-option.icon-rss {  background:#ff6600; }
+
+.wheelzator-social div.wheel-container[data-icon="facebook"] .wheel-center {  background:#3b5998; }
+.wheelzator-social div.wheel-container[data-icon="twitter"] .wheel-center {  background:#55acee; }
+.wheelzator-social div.wheel-container[data-icon="google-plus"] .wheel-center {  background:#dd4b39; }
+.wheelzator-social div.wheel-container[data-icon="youtube"] .wheel-center {  background:#bb0000; }
+.wheelzator-social div.wheel-container[data-icon="linkedin"] .wheel-center {  background:#007bb5; }
+.wheelzator-social div.wheel-container[data-icon="instagram"] .wheel-center {  background:#125688; }
+.wheelzator-social div.wheel-container[data-icon="pinterest"] .wheel-center {  background:#cb2027; }
+.wheelzator-social div.wheel-container[data-icon="whatsapp"] .wheel-center {  background:#4dc247; }
+.wheelzator-social div.wheel-container[data-icon="vine"] .wheel-center {  background:#00bf8f; }
+.wheelzator-social div.wheel-container[data-icon="snapchat"] .wheel-center {  background:#fffc00; }
+.wheelzator-social div.wheel-container[data-icon="spotify"] .wheel-center {  background:#00e461; }
+.wheelzator-social div.wheel-container[data-icon="tumblr"] .wheel-center {  background:#32506d; }
+.wheelzator-social div.wheel-container[data-icon="rss"] .wheel-center {  background:#ff6600; }
+				</code>
+
+			</section>
+			<section id="parameters">
+				<h3>Parameters</h3>
+				<code>
+					wheelzator("#element", optionsArray, configurationObject);
+				</code>
+				<h4 id="parameters-options">Options</h4>
+				<code>
+					var options = [
+					<tb></tb>{
+					<tb></tb><tb></tb>icon:"whatsapp",
+					<tb></tb><tb></tb>value:562,
+					<tb></tb><tb></tb>title:"Share on WhatsApp"
+					<tb></tb>},
+					<tb></tb>{
+					<tb></tb><tb></tb>...
+					]
+				</code>
+				<br />
+				<div class="well">
+					<p><strong>icon: </strong> The <a href="http://fontawesome.io/cheatsheet/">FontAwesome</a> icon class, without the "fa-" prefix.
+					<br /><em>Example: </em>"group"<tb></tb>( <i class="fa fa-group"></i> )</p>
+				</div>
+				<div class="well">
+					<p><strong>value: </strong> Whatever value this wheel's option should have.
+					<br /><em>Example: </em><strong>5</strong>, (an category ID to relate to an post); <strong>TRUE or FALSE</strong>, meaning "Active" or "Inactive", etc</p>
+				</div>
+				<div class="well">
+					<p><strong>title: </strong> Actual <em>title=""</em> attribute.
+					<br /><em>Example: </em>"Activate", "Share on facebook", "Admin Group": The explanation of what this option is.
+					<br />-- Use bootstrap's <strong>.tooltip()</strong> to improve style and user experience:</p>
+					<code>$(".wheel-option-container a").tooltip();</code>
+				</div>
+				<br />
+				<h4 id="parameters-config">Config</h4>
+				<p>Defines size, angle and callback functions</p>
+				<code>
+					var config = {
+					<tb></tb>minDistance : 20,
+					<tb></tb>maxDistance : 90,
+					<tb></tb>optionDistance : 60,
+					<tb></tb>offsetAngle : 90,
+					<tb></tb>offsetCalcAngle : -15,
+
+					<tb></tb>onOpen : function() {
+					<tb></tb><tb></tb>console.log("Wheelzator Opened");
+					<tb></tb>},
+					<tb></tb>onClose : function() {
+					<tb></tb><tb></tb>console.log("Wheelzator Closed");
+					<tb></tb>},
+					<tb></tb>onSelect : function(data) {
+					<tb></tb><tb></tb>console.log("Wheelzator -- selected option "+data.index+" with value "+data.value);
+					<tb></tb>},
+					<tb></tb>onDeselect : function() {
+					<tb></tb><tb></tb>console.log("Deselected");
+					<tb></tb>},
+					}
+				</code>
+				<div class="well">
+					<p>
+						<strong>minDistance</strong>:<br />
+						Minimal distance from center of wheel to select an option.<br />
+						Clicking within this radius will trigger <b>onDeselect()</b>.<br />
+						<img src="example3.png" class="img-thumbnail" />
+					</p>
+					<p>
+						<strong>maxDistance</strong>:<br />
+						Outer limit of wheel. Also represents <code style="display:inline">.wheel-inner</code> size.<br />
+						Clicking outside this radius will trigger <b>onDeselect()</b>.<br />
+						<img src="example4.png" class="img-thumbnail" />
+					</p>
+					<p>
+						<strong>optionDistance</strong>:<br />
+						Distance of each option to the center of wheel.<br />
+						<img src="example5.png" class="img-thumbnail" />
+					</p>
+					<p>
+						<strong>offsetAngle</strong>:<br />
+						Amount of degrees to rotate the options<br />
+						<img src="example1.png" class="img-thumbnail" />
+					</p>
+					<p>
+						<strong>offsetCalcAngle</strong>:<br />
+						In-code compensation angle<br />
+						<img src="example2.png" class="img-thumbnail" />
+					</p>
+					<h4 id="parameters-events">Events</h4>
+					<p>
+						<strong>onOpen()</strong>:<br />
+						Function called when wheel is opened.<br />
+						Takes no arguments.
+					</p>
+					<p>
+						<strong>onSelect(data)</strong>:<br />
+						Function called when an option is selected.<br />
+						<strong>data</strong> object:
+						<code>
+							index,
+							value,
+							target,
+							wheelContainer,
+							originObject
+						</code>
+					</p>
+					<p><strong>index</strong>: <span>number of option selected</span></p>
+					<p><strong>value</strong>: <span>assigned value of this option</span></p>
+					<p><strong>target</strong>: <span>html obj of option selected</span></p>
+					<p><strong>wheelContainer</strong>: <span>html object of wheel container</span></p>
+					<p><strong>originObject</strong>: <span>html object parent of wheel container</span></p>
+					<p>
+						<strong>onDeselect()</strong>:<br />
+						Function called when selection happens inside the donut hole or outside of wheel.<br />
+						Takes no arguments.
+					</p>
+				</div>
+
+				<a class="btn btn-primary btn-lg" href="event-demo.html">Event Demo</a>
+
+			</section>
+			<section id="presets">
+				<h3>Presets</h3>
+				<div class="col-sm-6">
+					<h4>Style</h4>
+					<strong>Flat UI (<a href="http://flatuicolors.com" >taken from here</a>)</strong>
+					<code>
+						&lt;div class='wheelzator-flat-ui'&gt;
+					</code>
+					<br />
+
+					<strong>Yes No</strong>
+					<code>
+						&lt;div class='wheelzator-yes-no'&gt;
+					</code>
+					<br />
+
+					<strong>Importance (success, info, warning and danger)</strong>
+					<code>
+						&lt;div class='wheelzator-importance'&gt;
+					</code>
+					<br />
+
+					<strong>Blueish (different animation also)</strong>
+					<code>
+						&lt;div class='wheelzator-blueish'&gt;
+					</code>
+					<br />
+
+					<strong>Social (most social icons covered i guess)</strong>
+					<code>
+						&lt;div class='wheelzator-social'&gt;
+					</code>
+				</div>
+				<div class="col-sm-6">
+					<h4>Options (Javascript) </h4>
+					<strong>Yes No</strong>
+					<code>
+						var wheelzatorYesNo = [
+						<tb></tb>{icon:"check", value:true, title:"Ativo"},
+						<tb></tb>{icon:"times", value:false, title:"Inativo"},
+						]
+					</code>
+					<br />
+					<strong>Importance</strong>
+					<code>
+						var wheelzatorImportance = [
+						<tb></tb>{icon:"square", value:1, title:"Comum"},
+						<tb></tb>{icon:"info", value:2, title:"Informação"},
+						<tb></tb>{icon:"exclamation-triangle", value:3, title:"Atenção"},
+						<tb></tb>{icon:"exclamation-circle", value:4, title:"Importante"},
+						]
+					</code>
+					<br />
+				</div>
+				<div class="clearfix"></div>
+				<h3 id="presets-effects">Effects</h3>
+				<p>Default is Rotation with Scaling, with easeOutBack transition.</p>
+				<p><strong>Important: </strong>when not selected, <code style="display:inline;">.wheel-inner</code> must have <code style="display:inline;">transform:scale(0);</code>, otherwise the options will overlap all elements around the wheel.</p>
+				<a target="_blank" class="btn btn-primary btn-md" href="http://easings.net/pt-br">Easing functions <i class="fa fa-share"></i></a>
+				<br />
+				<br />
+
+				<strong>Rotate and Grow:</strong>
+				<code>
+					.wheel-container .wheel-inner {
+					<tb></tb>transform:scale(0)rotate(90deg);
+					}
+					.wheel-container.in .wheel-inner {
+					<tb></tb>transform:scale(1)rotate(0deg);
+					}
+				</code><br />
+				<strong>Fade, no Grow (with easing):</strong>
+				<code>
+					.wheel-container .wheel-inner {
+					<tb></tb>transform:scale(0);
+					<tb></tb>opacity:0;
+					<tb></tb>transition:opacity .4s ease;
+					}
+					.wheel-container.in .wheel-inner {
+					<tb></tb>transform:scale(1);
+					<tb></tb>opacity:1;
+					}
+				</code><br />
+				<strong>Popup effect on each option</strong>
+				<code>
+					.wheel-container .wheel-option {
+					<tb></tb>transition:.4s ease;
+					<tb></tb>transform:scale(1);
+					}
+					div.wheel-container[data-selected="1"] .option-index-1,
+					div.wheel-container[data-selected="2"] .option-index-2,
+					div.wheel-container[data-selected="3"] .option-index-3,
+					...
+					{
+					<tb></tb>transform:scale(1.3);
+					}
+				</code><br />
+
+			</section>
+			<section id="manipulating">
+				<h3>Manipulating</h3>
+				<p>Example: set the value of a wheel via js</p>
+				<p>wheelzator() returns an wheelzator object:</p>
+				<code>
+					var activeInactiveWheel = wheelzator("#a-i-wheel", [
+					<tb></tb>{icon:"times",value:"inactive",title:"Inactive"},
+					<tb></tb>{icon:"check",value:"active",title:"Active"},
+					]);
+
+					$("#a-i-wheel a").tooltip();
+
+					activeInactiveWheel.setValue("active");
+				</code>
+				<p>Obs.: calling .setIndex(), .setValue() and .deselect() does <b>not</b> trigger .onSelect(), .onClose() etc. functions.</p>
+				<h4>Functions:</h4>
+				<br />
+				<strong>.setIndex( index )</strong><br />
+				<p>Sets the selected option of the wheel according to index. Starts in 1<br />
+				returns an error if index is &lt;1 or greater than wheel's number of options.</p>
+				<br />
+				<strong>.setValue( value )</strong><br />
+				<p>Sets the selected option of the wheel according to value.<br />
+				directly compares this argument to each option's value and calls setIndex(). Returns error if didn't find.</p>
+				<br />
+				<strong>.deselect()</strong><br />
+				<p>Deselects the wheel, setting it to none.</p>
+				<br />
+				<strong>.getIndex()</strong><br />
+				<p>Returns current wheel index, or <b>undefined</b> if deselected.<br />
+				The same as <code style="display:inline">$("#wheelzator-container .wheel-container").attr("data-value")</code></p>
+				<br />
+				<strong>.getValue()</strong><br />
+				<p>Returns current wheel value, or <b>undefined</b> if deselected.<br />
+				The same as <code style="display:inline">$("#wheelzator-container .wheel-container").attr("data-selected")</code></p>
+				<br />
+
+
+			</section>
+			<section id="dependancies">
+				<h3>Dependancies</h3>
+				<p>jQuery 1.1<br />
+				Font Awesome<br />
+				Bootstrap if you'll use <b>tooltip</b></p>
+
+			<br /><br /><br />
+			<br /><br /><br />
+			<br /><br /><br />
+			<br /><br /><br />
+			<br /><br /><br />
+			<br /><br /><br />
+			<br /><br /><br />
+			</section>
+
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+

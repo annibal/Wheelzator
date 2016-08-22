@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+		<link href='https://fonts.googleapis.com/css?family=Montserrat+Alternates|Pacifico|Lato|Bitter' rel='stylesheet' type='text/css'>
+		<link href='wheelzator.css' rel='stylesheet' type='text/css'>
+		<style>
+			.panel{
+				margin-bottom:10px;
+			}
+			#event-demo-wheelzator{
+				margin:0px auto;
+				width:4em;
+				height:4em;
+			}
+			section {
+				padding-bottom:100px;
+				border-bottom:1px solid #DDD;
+			}
+			code {
+				padding:15px;
+				padding-top:0;
+				box-sizing:content-box;
+				display:block;
+				white-space:pre-line;
+				border:1px solid lightred;
+				cursor:text;
+			}
+			tb {
+				margin-right:2em;
+				border-right:1px dotted #DDD;
+			}
+
+
+			.wheel-center {
+				box-shadow: inset 0px 2px 6px rgba(255,255,255,0.5),
+							inset 0px -2px 6px rgba(0,0,0,0.5),
+							0px 0px 0px 5px #9CF;
+			}
+			.wheel-center:hover {
+				box-shadow: inset 0px 3px 7px rgba(255,255,255,0.7),
+							inset 0px -3px 7px rgba(0,0,0,0.7),
+							0px 0px 0px 5px #9CF;
+			}
+			.in .wheel-center {
+				box-shadow: inset 0px -2px 2px rgba(255,255,255,0.7),
+							inset 0px 2px 2px rgba(0,0,0,0.7),
+							0px 0px 0px 5px #9CF;
+			}
+
+			.wheel-container .icon-ban {
+				box-shadow:0px 0px 0px 5px #E66;
+				color:#E66 !important; }
+			.wheel-container .icon-lock {
+				box-shadow:0px 0px 0px 5px #BBB;
+				color:#BBB !important; }
+			.wheel-container .icon-unlock {
+				box-shadow:0px 0px 0px 5px #7EC;
+				color:#7EC !important; }
+			.wheel-container .icon-thumbs-up {
+				box-shadow:0px 0px 0px 5px #66F;
+				color:#66F !important; }
+			.wheel-container .icon-thumbs-down {
+				box-shadow:0px 0px 0px 5px #F00;
+				color:#F00 !important; }
+			.wheel-container .icon-star {
+				box-shadow:0px 0px 0px 5px #EE0;
+				color:#EE0 !important; }
+
+			.wheel-container[data-icon="ban"] .wheel-inner .icon-ban {
+				box-shadow:none;
+				background:#E66;
+				color:#FFF !important; }
+			.wheel-container[data-icon="lock"] .wheel-inner .icon-lock {
+				box-shadow:none;
+				background:#BBB;
+				color:#FFF !important; }
+			.wheel-container[data-icon="unlock"] .wheel-inner .icon-unlock {
+				box-shadow:none;
+				background:#7EC;
+				color:#FFF !important; }
+			.wheel-container[data-icon="thumbs-up"] .wheel-inner .icon-thumbs-up {
+				box-shadow:none;
+				background:#66F;
+				color:#FFF !important; }
+			.wheel-container[data-icon="thumbs-down"] .wheel-inner .icon-thumbs-down {
+				box-shadow:none;
+				background:#F00;
+				color:#FFF !important; }
+			.wheel-container[data-icon="star"] .wheel-inner .icon-star {
+				box-shadow:none;
+				background:#EE0;
+				color:#FFF !important; }
+
+			.wheel-container[data-icon="ban"] .wheel-center {
+				background:#E66;
+			}
+			.wheel-container[data-icon="lock"] .wheel-center {
+				background:#BBB;
+			}
+			.wheel-container[data-icon="unlock"] .wheel-center {
+				background:#7EC;
+			}
+			.wheel-container[data-icon="thumbs-up"] .wheel-center {
+				background:#66F;
+			}
+			.wheel-container[data-icon="thumbs-down"] .wheel-center {
+				background:#F00;
+			}
+			.wheel-container[data-icon="star"] .wheel-center {
+				background:#EE0;
+			}
+
+			.wheel-container .wheel-inner {
+				transition-delay:.25s;
+				transform:scale(0);
+			}
+			.wheel-container.in .wheel-inner {
+				transition:none;
+			}
+			.wheel-container .wheel-option { transform:scale(0); transition:transform .4s ease;}
+			.wheel-container.in .wheel-option {transform:scale(1); }
+			.wheel-container .option-index-1 {transition-delay:.1s;}
+			.wheel-container .option-index-2 {transition-delay:.15s;}
+			.wheel-container .option-index-3 {transition-delay:.2s;}
+			.wheel-container .option-index-4 {transition-delay:.25s;}
+			.wheel-container .option-index-5 {transition-delay:.3s;}
+			.wheel-container .option-index-6 {transition-delay:.35s;}
+		</style>
+		<link href="" rel="favicon" />
+		<title>Wheelzator Event Demo</title>
+	</head>
+	<body ng-app="wheelzatorDemoEvent">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+					<h2>Event Demo</h2>
+				</div>
+				<div class="col-sm-4 text-right"><br />
+					<a href="index.html" class="btn btn-default btn-lg">Home</a>
+				</div>
+			</div>
+		</div>
+		<div class="container" ng-controller="myController">
+			<div class="row">
+				<div class="col-sm-6">
+					<br /><br /><br />
+					<div id="well" >
+						<div id="event-demo-wheelzator" ></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<br />
+					<div class="panel panel-default">
+						<div class="panel-heading">Parameters</div>
+						<div class="panel-body">
+							<p><strong>index</strong>: <span>{{index}}</span></p>
+							<p><strong>value</strong>: <span>{{value}}</span></p>
+							<p><strong>target</strong>: <span>{{target}}</span></p>
+							<p><strong>wheelContainer</strong>: <span>{{wheelContainer}}</span></p>
+							<p><strong>originObject</strong>: <span>{{originObject}}</span></p>
+						</div>
+						<div class="panel-footer">
+							<p><strong>status</strong>: <span>{{status}}</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Code</h2>
+					<code>
+			$(function() {
+			<tb></tb>wheelzator("#event-demo-wheelzator", evtDemoOptions, evtDemoConfig);
+			})
+
+			$(".wheel-option-container a").tooltip();
+					</code>
+					<br />
+					<button data-toggle="collapse" data-target="#colaps-css" class="btn btn-primary btn-lg">CSS <span class="caret"></button>
+					<button data-toggle="collapse" data-target="#colaps-angular" class="btn btn-primary btn-lg">Angular <span class="caret"></button>
+					<button data-toggle="collapse" data-target="#colaps-woptions" class="btn btn-primary btn-lg">Wheelzator Options <span class="caret"></button>
+					<button data-toggle="collapse" data-target="#colaps-wconfig" class="btn btn-primary btn-lg">Wheelzator Config/Events <span class="caret"></button>
+
+					<br />
+					<br />
+					<br />
+
+					<div id="colaps-css" class="collapse">
+						<strong>CSS Styling</strong><br />
+						<br />
+						<button data-toggle="collapse" data-target="#css-center" class="btn btn-primary btn-lg">Center icon style <span class="caret"></button>
+						<button data-toggle="collapse" data-target="#css-buttoncolor" class="btn btn-primary btn-lg">Button color <span class="caret"></button>
+						<button data-toggle="collapse" data-target="#css-centercolor" class="btn btn-primary btn-lg">Center Color <span class="caret"></button>
+						<button data-toggle="collapse" data-target="#css-effect" class="btn btn-primary btn-lg">Effect<span class="caret"></button>
+						<br />
+						<br />
+						<div id="css-center" class="collapse">
+							<strong><tb></tb>CSS - Center icon style</strong>
+							<code>
+.wheel-center {
+<tb></tb>box-shadow: inset 0px 2px 6px rgba(255,255,255,0.5),
+<tb></tb><tb></tb><tb></tb><tb></tb>inset 0px -2px 6px rgba(0,0,0,0.5),
+<tb></tb><tb></tb><tb></tb><tb></tb>0px 0px 0px 5px #9CF;
+}
+.wheel-center:hover {
+<tb></tb>box-shadow: inset 0px 3px 7px rgba(255,255,255,0.7),
+<tb></tb><tb></tb><tb></tb><tb></tb>inset 0px -3px 7px rgba(0,0,0,0.7),
+<tb></tb><tb></tb><tb></tb><tb></tb>0px 0px 0px 5px #9CF;
+}
+.in .wheel-center {
+<tb></tb>box-shadow: inset 0px -2px 2px rgba(255,255,255,0.7),
+<tb></tb><tb></tb><tb></tb><tb></tb>inset 0px 2px 2px rgba(0,0,0,0.7),
+<tb></tb><tb></tb><tb></tb><tb></tb>0px 0px 0px 5px #9CF;
+}
+							</code>
+						</div>
+						<div id="css-buttoncolor" class="collapse">
+							<strong><tb></tb>CSS - Button color and hover style</strong>
+							<code>
+.wheel-container .icon-ban {
+<tb></tb>box-shadow:0px 0px 0px 5px #E66;
+<tb></tb>color:#E66 !important; }
+.wheel-container .icon-lock {
+<tb></tb>box-shadow:0px 0px 0px 5px #BBB;
+<tb></tb>color:#BBB !important; }
+.wheel-container .icon-unlock {
+<tb></tb>box-shadow:0px 0px 0px 5px #7EC;
+<tb></tb>color:#7EC !important; }
+.wheel-container .icon-thumbs-up {
+<tb></tb>box-shadow:0px 0px 0px 5px #66F;
+<tb></tb>color:#66F !important; }
+.wheel-container .icon-thumbs-down {
+<tb></tb>box-shadow:0px 0px 0px 5px #F00;
+<tb></tb>color:#F00 !important; }
+.wheel-container .icon-star {
+<tb></tb>box-shadow:0px 0px 0px 5px #EE0;
+<tb></tb>color:#EE0 !important; }
+
+.wheel-container[data-icon="ban"] .wheel-inner .icon-ban {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#E66;
+<tb></tb>color:#FFF !important; }
+.wheel-container[data-icon="lock"] .wheel-inner .icon-lock {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#BBB;
+<tb></tb>color:#FFF !important; }
+.wheel-container[data-icon="unlock"] .wheel-inner .icon-unlock {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#7EC;
+<tb></tb>color:#FFF !important; }
+.wheel-container[data-icon="thumbs-up"] .wheel-inner .icon-thumbs-up {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#66F;
+<tb></tb>color:#FFF !important; }
+.wheel-container[data-icon="thumbs-down"] .wheel-inner .icon-thumbs-down {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#F00;
+<tb></tb>color:#FFF !important; }
+.wheel-container[data-icon="star"] .wheel-inner .icon-star {
+<tb></tb>box-shadow:none;
+<tb></tb>background:#EE0;
+<tb></tb>color:#FFF !important; }
+							</code>
+						</div>
+						<div id="css-centercolor" class="collapse">
+							<strong><tb></tb>CSS - Center button color</strong>
+							<code>
+.wheel-container[data-icon="ban"] .wheel-center {
+<tb></tb>background:#E66;
+}
+.wheel-container[data-icon="lock"] .wheel-center {
+<tb></tb>background:#BBB;
+}
+.wheel-container[data-icon="unlock"] .wheel-center {
+<tb></tb>background:#7EC;
+}
+.wheel-container[data-icon="thumbs-up"] .wheel-center {
+<tb></tb>background:#66F;
+}
+.wheel-container[data-icon="thumbs-down"] .wheel-center {
+<tb></tb>background:#F00;
+}
+.wheel-container[data-icon="star"] .wheel-center {
+<tb></tb>background:#EE0;
+}
+							</code>
+						</div>
+						<div id="css-effect" class="collapse">
+							<strong><tb></tb>CSS - Effect</strong>
+							<code>
+
+.wheel-container .wheel-inner {
+<tb></tb>transition-delay:.25s;
+<tb></tb>transform:scale(0);
+}
+.wheel-container.in .wheel-inner {
+<tb></tb>transition:none;
+}
+.wheel-container .wheel-option { transform:scale(0); transition:transform .4s ease;}
+.wheel-container.in .wheel-option {transform:scale(1); }
+.wheel-container .option-index-1 {transition-delay:.1s;}
+.wheel-container .option-index-2 {transition-delay:.15s;}
+.wheel-container .option-index-3 {transition-delay:.2s;}
+.wheel-container .option-index-4 {transition-delay:.25s;}
+.wheel-container .option-index-5 {transition-delay:.3s;}
+.wheel-container .option-index-6 {transition-delay:.35s;}
+							</code>
+						</div>
+					</div>
+					<div id="colaps-angular" class="collapse">
+						<strong>Angular Code</strong><br />
+						<code>
+			angular.module('wheelzatorDemoEvent', [])
+			.controller('myController',["$scope",function($scope) {
+			<tb></tb>$scope.index = 0;
+			<tb></tb>$scope.value = 0;
+			<tb></tb>$scope.target = 0;
+			<tb></tb>$scope.wheelContainer = 0;
+			<tb></tb>$scope.originObject = 0;
+			<tb></tb>$scope.status = "Closed";
+
+			<tb></tb>$scope.updateWheelzatorParameters = function(data) {
+			<tb></tb><tb></tb>if (typeof data.index != "undefined") $scope.index = data.index;
+			<tb></tb><tb></tb>if (typeof data.value != "undefined") $scope.value = data.value;
+			<tb></tb><tb></tb>if (typeof data.target != "undefined") $scope.target = data.target.toString();
+			<tb></tb><tb></tb>if (typeof data.wheelContainer != "undefined") $scope.wheelContainer = data.wheelContainer.toString();
+			<tb></tb><tb></tb>if (typeof data.originObject != "undefined") $scope.originObject = data.originObject.toString();
+			<tb></tb>}
+			<tb></tb>$scope.updateStatus = function(status) {
+			<tb></tb><tb></tb>$scope.status = status;
+			<tb></tb>}
+			}])
+						</code>
+					</div>
+					<div id="colaps-woptions" class="collapse">
+						<strong>Wheelzator Options</strong><br />
+						<code>
+			var evtDemoOptions = [
+			<tb></tb>{ icon:"ban", value:"ban", title:"Report" },
+
+			<tb></tb>{ icon:"star", value:"favorite", title:"Save as favorite" },
+			<tb></tb>{ icon:"thumbs-up", value:"like", title:"Like" },
+			<tb></tb>{ icon:"unlock", value:"unlock", title:"Unlock" },
+
+			<tb></tb>{ icon:"lock", value:"lock", title:"Lock" },
+			<tb></tb>{ icon:"thumbs-down", value:"dislike", title:"Dislike" },
+			]
+						</code>
+					</div>
+					<div id="colaps-wconfig" class="collapse">
+						<strong>Wheelzator Configuration (Only has Events)</strong><br />
+						<code>
+			evtDemoConfig = {
+
+			<tb></tb>minDistance : 10,
+			<tb></tb>maxDistance : 100,
+			<tb></tb>optionDistance : 70,
+
+			<tb></tb>onOpen : function() {
+			<tb></tb><tb></tb>var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+			<tb></tb><tb></tb>$ngScope.updateStatus("Open");
+			<tb></tb><tb></tb>$ngScope.$apply();
+			<tb></tb>},
+			<tb></tb>onClose : function() {
+			<tb></tb><tb></tb>var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+			<tb></tb><tb></tb>$ngScope.updateStatus("Closed");
+			<tb></tb><tb></tb>$ngScope.$apply();
+			<tb></tb>},
+			<tb></tb>onSelect : function(data) {
+			<tb></tb><tb></tb>var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+			<tb></tb><tb></tb>$ngScope.updateWheelzatorParameters(data);
+			<tb></tb><tb></tb>$ngScope.$apply();
+			<tb></tb>},
+			<tb></tb>onDeselect : function() {
+			<tb></tb><tb></tb>var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+			<tb></tb><tb></tb>$ngScope.updateWheelzatorParameters({
+			<tb></tb><tb></tb><tb></tb>index:"none",
+			<tb></tb><tb></tb><tb></tb>value:"none"
+			<tb></tb><tb></tb>});
+			<tb></tb><tb></tb>$ngScope.$apply();
+			<tb></tb>},
+			}
+						</code>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div style="padding-top:400px" ></div>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+		<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js" ></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js" ></script>
+		<script src="wheelzator.js" ></script>
+		<script>
+			angular.module('wheelzatorDemoEvent', [])
+			.controller('myController',["$scope",function($scope) {
+				$scope.index = 0;
+				$scope.value = 0;
+				$scope.target = 0;
+				$scope.wheelContainer = 0;
+				$scope.originObject = 0;
+				$scope.status = "Closed";
+
+				$scope.updateWheelzatorParameters = function(data) {
+					if (typeof data.index != "undefined") $scope.index = data.index;
+					if (typeof data.value != "undefined") $scope.value = data.value;
+					if (typeof data.target != "undefined") $scope.target = data.target.toString();
+					if (typeof data.wheelContainer != "undefined") $scope.wheelContainer = data.wheelContainer.toString();
+					if (typeof data.originObject != "undefined") $scope.originObject = data.originObject.toString();
+				}
+				$scope.updateStatus = function(status) {
+					$scope.status = status;
+				}
+			}])
+
+			var evtDemoOptions = [
+				{ icon:"ban", value:"ban", title:"Report" },
+
+				{ icon:"star", value:"favorite", title:"Save as favorite" },
+				{ icon:"thumbs-up", value:"like", title:"Like" },
+				{ icon:"unlock", value:"unlock", title:"Unlock" },
+
+				{ icon:"lock", value:"lock", title:"Lock" },
+				{ icon:"thumbs-down", value:"dislike", title:"Dislike" },
+			]
+			evtDemoConfig = {
+
+				minDistance : 10,
+				maxDistance : 100,
+				optionDistance : 70,
+
+				onOpen : function() {
+					var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+					$ngScope.updateStatus("Open");
+					$ngScope.$apply();
+				},
+				onClose : function() {
+					var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+					$ngScope.updateStatus("Closed");
+					$ngScope.$apply();
+				},
+				onSelect : function(data) {
+					var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+					$ngScope.updateWheelzatorParameters(data);
+					$ngScope.$apply();
+				},
+				onDeselect : function() {
+					var $ngScope = angular.element($('[ng-controller="myController"]')[0]).scope();
+					$ngScope.updateWheelzatorParameters({
+						index:"none",
+						value:"none"
+					});
+					$ngScope.$apply();
+				},
+			}
+			$(function() {
+				wheelzator("#event-demo-wheelzator", evtDemoOptions, evtDemoConfig);
+			})
+
+			$(function(){
+				$(".wheel-option-container a").tooltip();
+			})
+		</script>
+	</body>
+</html>
