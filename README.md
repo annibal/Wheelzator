@@ -1,9 +1,9 @@
 # Wheelzator
 Stylish alternative to combobox selection using wheel-like popup buttons
 
-[See the Demo](https://annibal.github.io/Wheelzator/demo.html)
-[See the Event Demo](https://annibal.github.io/Wheelzator/event-demo.html)
-[Docs i Made](https://annibal.github.io/Wheelzator/)
+[See the Demo](https://annibal.github.io/Wheelzator/demo.html) <br />
+[See the Event Demo](https://annibal.github.io/Wheelzator/event-demo.html) <br>
+[Docs i Made](https://annibal.github.io/Wheelzator/)<br>
 
 ## Usage:
 `wheelzator("#my-wheel-container", optionsArray, configurationsAndEventsObject);`
@@ -34,5 +34,5 @@ An array of objects with these properties:
 - - **data.wheelContainer**: HTML Obj of Wheel Container
 - - **data.originObject**: HTML Obj of Wheel Container's Parent
 
-Wheelzator comes with some [Presets](https://annibal.github.io/Wheelzator/index.html#presets)
+Wheelzator comes with some [Presets](https://annibal.github.io/Wheelzator/index.html#presets)<br>
 Uses CSS selector for color, style and animation.
